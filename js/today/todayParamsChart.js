@@ -1,6 +1,5 @@
 
 function todayParamsChart (seriesData) {
-  console.log(seriesData);
   $('#todayParamsContainer').highcharts({
       chart: {
           type: 'column'
