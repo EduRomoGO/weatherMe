@@ -1,11 +1,13 @@
 
-var pressure = [];
-var humidity = [];
-var windSpeed = [];
-var windDirection = [];
-
-
 function processData(weatherData) {
+	var pressure = [];
+	var humidity = [];
+	var windSpeed = [];
+	var windDirection = [];
+	var weatherParams = {"pressure": pressure, 
+											 "humidity": humidity, 
+											 "windSpeed": windSpeed,
+											 "windDirection": windDirection};
 	var categories = [];
 	var weatherSummary = "<h1>Weather Description:</h1>";
 	var seriesData = [];
@@ -20,7 +22,7 @@ function processData(weatherData) {
 		categories.push(processingDay);
 		addTempToNewDay(dayData["temp"], processingDay, seriesData);
 		weatherSummary = addweatherSummaryToNewDay(dayData, processingDay, weatherSummary);
-		addOtherParamsToNewDay(dayData);
+		addOtherParamsToNewDay(dayData, weatherParams);
 	}
 
 	$('.weatherSummarySection').html(weatherSummary);
@@ -64,11 +66,11 @@ function addweatherSummaryToNewDay(dayData, processingDay, weatherSummary) {
 }
 
 
-function addOtherParamsToNewDay(dayData) {
-	pressure.push(dayData["pressure"]);
-	humidity.push(dayData["humidity"]);
-	windSpeed.push(dayData["speed"]);
-	windDirection.push(dayData["deg"]);
+function addOtherParamsToNewDay(dayData, weatherParams) {
+	weatherParams["pressure"].push(dayData["pressure"]);
+	weatherParams["humidity"].push(dayData["humidity"]);
+	weatherParams["windSpeed"].push(dayData["speed"]);
+	weatherParams["windDirection"].push(dayData["deg"]);
 }
 
 
