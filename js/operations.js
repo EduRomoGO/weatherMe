@@ -1,43 +1,38 @@
 
 function processData(weatherData) {
-	var pressure = [];
-	var humidity = [];
-	var windSpeed = [];
-	var windDirection = [];
-	var weatherParams = {"pressure": pressure, 
-											 "humidity": humidity, 
-											 "windSpeed": windSpeed,
-											 "windDirection": windDirection};
-	var categories = [];
-	var weatherSummary = "<h1>Weather Description:</h1>";
-	var seriesData = [];
+	var weatherJsonData = JSON.parse(weatherData);
 	var chartsData = {};
-	var paramsData = [];
-	var paramsDataSeries = [];
-	weatherJsonData = JSON.parse(weatherData);
 
-	for(var i = 0; i < 5; i++) {
-		var dayData = weatherJsonData["list"][i];
-		processingDay = weekDay(i);
-		categories.push(processingDay);
-		addTempToNewDay(dayData["temp"], processingDay, seriesData);
-		weatherSummary = addweatherSummaryToNewDay(dayData, processingDay, weatherSummary);
-		addOtherParamsToNewDay(dayData, weatherParams);
-	}
+	var categoriesAndSeriesData = processTempData(weatherJsonData);
+	var paramsDataSeries = processParamsData(weatherJsonData);
+	var weatherSummary = processWeatherSummaryData(weatherJsonData);
+
 
 	$('.weatherSummarySection').html(weatherSummary);
 
-	paramsDataSeries.push({"name": 'Pressure' ,"data": pressure});
-	paramsDataSeries.push({"name": 'Humidity' ,"data": humidity});
-	paramsDataSeries.push({"name": 'Wind Speed' ,"data": windSpeed});
-	paramsDataSeries.push({"name": 'Wind Direction' ,"data": windDirection});
-
-	chartsData["seriesData"] = seriesData;
+	chartsData["seriesData"] = categoriesAndSeriesData["seriesData"];
 	chartsData["paramsDataSeries"] = paramsDataSeries;
-	chartsData["categories"] = categories;
+	chartsData["categories"] = categoriesAndSeriesData["categories"];
+
 	return chartsData;
 }
 
+
+
+function processTempData(weatherJsonData) {
+	var categoriesAndSeriesData = {"categories": [], "seriesData": []};
+
+	for(var i = 0; i < 5; i++) {
+		var dayData = weatherJsonData["list"][i];
+		var processingDay = weekDay(i);
+		categoriesAndSeriesData["categories"].push(processingDay);
+		addTempToNewDay(dayData["temp"], 
+										processingDay, 
+										categoriesAndSeriesData["seriesData"]);
+	}
+
+	return categoriesAndSeriesData;
+}
 
 function addTempToNewDay(temp, processingDay, seriesData) {
 	var tempChart = [];
@@ -48,6 +43,49 @@ function addTempToNewDay(temp, processingDay, seriesData) {
 	//processedData["temp"] = tempChart;
 	//seriesData.push(processedData);
 	seriesData.push({"name": processingDay ,"data":tempChart});	
+}
+
+function processParamsData(weatherJsonData) {
+	var weatherParams = {"pressure": [], 
+											 "humidity": [], 
+											 "windSpeed": [],
+											 "windDirection": []};
+
+	for(var i = 0; i < 5; i++) {
+		var dayData = weatherJsonData["list"][i];
+		addOtherParamsToNewDay(dayData, weatherParams);
+	}
+
+	var paramsDataSeries = [
+		{"name": 'Pressure' ,"data": weatherParams["pressure"]},
+		{"name": 'Humidity' ,"data": weatherParams["humidity"]},
+		{"name": 'Wind Speed' ,"data": weatherParams["windSpeed"]},
+		{"name": 'Wind Direction' ,"data": weatherParams["windDirection"]}
+	]
+
+	return paramsDataSeries;
+}
+
+
+function addOtherParamsToNewDay(dayData, weatherParams) {
+	weatherParams["pressure"].push(dayData["pressure"]);
+	weatherParams["humidity"].push(dayData["humidity"]);
+	weatherParams["windSpeed"].push(dayData["speed"]);
+	weatherParams["windDirection"].push(dayData["deg"]);
+}
+
+
+function processWeatherSummaryData(weatherJsonData) {
+	var weatherSummary = "<h1>Weather Description:</h1>";
+
+	for(var i = 0; i < 5; i++) {
+		var dayData = weatherJsonData["list"][i];
+		var processingDay = weekDay(i);
+		weatherSummary = 
+		addweatherSummaryToNewDay(dayData, processingDay, weatherSummary);
+	}
+
+	return weatherSummary;
 }
 
 
@@ -63,14 +101,6 @@ function addweatherSummaryToNewDay(dayData, processingDay, weatherSummary) {
 	");
 	return weatherSummary;
 	//console.log(weatherSummary);
-}
-
-
-function addOtherParamsToNewDay(dayData, weatherParams) {
-	weatherParams["pressure"].push(dayData["pressure"]);
-	weatherParams["humidity"].push(dayData["humidity"]);
-	weatherParams["windSpeed"].push(dayData["speed"]);
-	weatherParams["windDirection"].push(dayData["deg"]);
 }
 
 
