@@ -1,6 +1,7 @@
 
 function searchTodayData() {
 	$('.forecast-charts').hide();
+	$('.today-charts').show();
 	var lastDaysWeatherData = {};
 	var URL = 
 	"http://api.openweathermap.org/data/2.5/weather?id=2885679&units=metric&mode=json";
