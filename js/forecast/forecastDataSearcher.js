@@ -1,6 +1,6 @@
 
-function searchData() {
-	$('#tempContainer').empty();
+function searchForecastData() {
+	$('.today-charts').hide();
 	var lastDaysWeatherData = {};
 	var URL = 
 	"http://api.openweathermap.org/data/2.5/forecast/daily?id=2643743&units=metric&cnt=5";
@@ -18,4 +18,4 @@ function searchData() {
 };
 
 
-$('.forecast').on('click', searchData);
+$('.forecast').on('click', searchForecastData);
