@@ -8,34 +8,46 @@
 	</head>
 	<body>
 
+
+
 		<div class="today">Today</div>
 		<div class="forecast">Forecast</div>
 	
+
+
 		<section class="charts">
+
 			<article class="forecast-charts">
 				<div id="tempContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 				<div id="paramsContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			</article>
+
 			<article class="today-charts">
 				<div id="todayTempContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+				<div id="todayParamsContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			</article>
-		</section>
-
-		<section class="weatherSummarySection">
 
 		</section>
+
+
+
+		<section class="weatherSummarySection"></section>
+
 		
-
 
 		<script src="http://code.highcharts.com/highcharts.js"></script>
 		<script src="http://code.highcharts.com/modules/exporting.js"></script>
 		<script src="js/forecast/weekDayCalculator.js"></script>
 		<script src="js/today/todayDataSearcher.js"></script>
+		<script src="js/today/todayParamsChart.js"></script>
+		<script src="js/staging/oneDayTempChart.js"></script>
 		<script src="js/forecast/forecastDataSearcher.js"></script>
 		<script src="js/forecast/tempChart.js"></script>
 		<script src="js/forecast/paramsChart.js"></script>
 		<script src="js/forecast/operations.js"></script>
+		<script src="js/today/todayOperations.js"></script>
 	</body>
 </html>
 

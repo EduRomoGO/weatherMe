@@ -11,10 +11,9 @@ function searchTodayData() {
 	    success: function(){
 	    	lastDaysWeatherData = lastDaysWeather.responseText;
 	      console.log("data retrieved OK");
-	      //var chartsData = processData(lastDaysWeatherData);
-	      //tempChart(chartsData["seriesData"]);
-	      //paramsChart(chartsData["paramsDataSeries"], chartsData["categories"]);
-	      console.log(lastDaysWeatherData);
+	      var todayChartsData = processTodayData(lastDaysWeatherData);
+	      todayTempChart(todayChartsData["seriesData"]);
+	      todayParamsChart(todayChartsData["paramsDataSeries"]);
 	    }
 	});
 };

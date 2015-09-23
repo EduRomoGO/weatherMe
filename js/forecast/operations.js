@@ -100,7 +100,6 @@ function addweatherSummaryToNewDay(dayData, processingDay, weatherSummary) {
 		</article>\
 	");
 	return weatherSummary;
-	//console.log(weatherSummary);
 }
 
 

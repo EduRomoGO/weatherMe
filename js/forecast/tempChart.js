@@ -1,5 +1,4 @@
 function tempChart (seriesData) {
-    //console.log(processedData);
     $('#tempContainer').highcharts({
         chart: {
             type: 'line'
