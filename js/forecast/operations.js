@@ -98,6 +98,7 @@ function addweatherSummaryToNewDay(dayData, processingDay, weatherSummary) {
 			<p>Temp max: "+ dayData["temp"]["max"] +"°C</p>\
 			<p>Temp min: "+ dayData["temp"]["min"] +"°C</p>\
 		</article>\
+		<hr>\
 	");
 	return weatherSummary;
 }
