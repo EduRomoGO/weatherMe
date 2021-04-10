@@ -1,6 +1,7 @@
 
 function processTodayData(weatherData) {
 	var weatherJsonData = JSON.parse(weatherData);
+	console.log(weatherJsonData);
 	var todayChartsData = {};
 
 	var seriesData = processTodayTempData(weatherJsonData);
@@ -41,12 +42,16 @@ function processTodayParamsData(weatherJsonData) {
 
 
 function processTodayWeatherSummaryData(weatherJsonData) {
+	var rain = "";
+	if(weatherJsonData["rain"] !== undefined){	
+		rain = weatherJsonData["rain"]["1h"];
+	}
 
 	var weatherSummary = "<h1>Weather Description:</h1>\
 		<article class='weatherSummary'>\
 			<p>"+ weatherJsonData["weather"][0]["description"] +"</p>\
 			<p>clouds: "+ weatherJsonData["clouds"]["all"] +"%</p>\
-			<p>Temp max: "+ weatherJsonData["rain"]["1h"] +"m3</p>\
+			<p>Temp max: "+ rain +"m3</p>\
 		</article>\
 	";
 
